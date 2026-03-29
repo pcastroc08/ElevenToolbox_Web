@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>ElevenToolbox - El kit definitivo para Windows 11</title>
+    <!-- Google Fonts + Font Awesome -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: radial-gradient(circle at 20% 30%, #0a0c12 0%, #030507 100%);
+            color: #eef2ff;
+            line-height: 1.4;
+            scroll-behavior: smooth;
+        }
+
+        /* Efecto de grid sutil */
+        .bg-grid {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(0, 255, 255, 0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 255, 255, 0.02) 1px, transparent 1px);
+            background-size: 48px 48px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .container {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 0 32px;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Header / Nav */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 24px 0 20px;
+            flex-wrap: wrap;
+            border-bottom: 1px solid rgba(0, 255, 255, 0.2);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-icon {
+            font-size: 2.4rem;
+            color: #00e0ff;
+            text-shadow: 0 0 6px #00e0ff80;
+        }
+
+        .logo h1 {
+            font-size: 1.9rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            background: linear-gradient(135deg, #FFFFFF, #00e0ff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .logo span {
+            font-size: 0.9rem;
+            font-weight: 500;
+            background: #1e2a3a80;
+            padding: 4px 10px;
+            border-radius: 40px;
+            backdrop-filter: blur(4px);
+            margin-left: 8px;
+            color: #b0f0ff;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 32px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #cbd5e6;
+            font-weight: 500;
+            transition: 0.2s;
+            font-size: 1rem;
+        }
+
+        .nav-links a:hover {
+            color: #00e0ff;
+            text-shadow: 0 0 3px #00e0ff;
+        }
+
+        .btn-outline {
+            border: 1px solid #00e0ff;
+            background: transparent;
+            padding: 8px 20px;
+            border-radius: 40px;
+            font-weight: 600;
+            color: #00e0ff;
+            transition: 0.2s;
+        }
+
+        .btn-outline:hover {
+            background: #00e0ff20;
+            box-shadow: 0 0 8px #00e0ff40;
+            cursor: pointer;
+        }
+
+        /* Hero */
+        .hero {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            padding: 60px 0 40px;
+            gap: 40px;
+        }
+
+        .hero-left {
+            flex: 1.2;
+        }
+
+        .hero-badge {
+            background: #0f212e;
+            display: inline-block;
+            padding: 6px 14px;
+            border-radius: 30px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            color: #7ad0ff;
+            border: 1px solid #2c5268;
+            margin-bottom: 24px;
+        }
+
+        .hero-left h2 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            line-height: 1.2;
+            background: linear-gradient(to right, #ffffff, #7ac9ff, #00e0ff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 20px;
+        }
+
+        .hero-left p {
+            font-size: 1.2rem;
+            color: #b9c7d9;
+            max-width: 550px;
+            margin-bottom: 32px;
+        }
+
+        .features-grid-mini {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            margin-bottom: 36px;
+        }
+
+        .mini-chip {
+            background: #0e1622cc;
+            backdrop-filter: blur(4px);
+            border-radius: 60px;
+            padding: 8px 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            border: 1px solid #2c4b5e;
+        }
+
+        .mini-chip i {
+            color: #00e0ff;
+            margin-right: 8px;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 18px;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary {
+            background: linear-gradient(95deg, #0078d4, #00b0f0);
+            border: none;
+            padding: 14px 32px;
+            border-radius: 44px;
+            font-weight: 700;
+            font-size: 1rem;
+            color: white;
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            transition: all 0.2s ease;
+            cursor: pointer;
+            box-shadow: 0 6px 14px #00a6ff30;
+        }
+
+        .btn-primary:hover {
+            transform: scale(1.02);
+            background: linear-gradient(95deg, #0088e8, #00c4ff);
+            box-shadow: 0 10px 22px #00a6ff60;
+        }
+
+        .btn-secondary {
+            background: rgba(20, 30, 45, 0.7);
+            backdrop-filter: blur(8px);
+            border: 1px solid #3c6e8c;
+            padding: 14px 28px;
+            border-radius: 44px;
+            font-weight: 600;
+            color: #d0eaff;
+            transition: 0.2s;
+            cursor: pointer;
+        }
+
+        .hero-right {
+            flex: 0.9;
+            background: rgba(8, 18, 28, 0.6);
+            backdrop-filter: blur(12px);
+            border-radius: 42px;
+            padding: 20px 24px;
+            border: 1px solid #2d5f7e;
+            box-shadow: 0 20px 35px -10px black;
+        }
+
+        .code-preview {
+            font-family: 'Courier New', monospace;
+            font-size: 0.85rem;
+            background: #03070e;
+            padding: 20px;
+            border-radius: 24px;
+            border-left: 4px solid #00e0ff;
+        }
+
+        .code-preview p {
+            color: #9cdbff;
+            margin: 8px 0;
+        }
+
+        /* Features cards */
+        .section-title {
+            font-size: 2.2rem;
+            font-weight: 700;
+            text-align: center;
+            margin: 70px 0 40px;
+        }
+
+        .section-title i {
+            color: #00e0ff;
+            margin-right: 12px;
+        }
+
+        .cards {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 28px;
+            justify-content: center;
+        }
+
+        .card {
+            background: rgba(12, 22, 35, 0.65);
+            backdrop-filter: blur(8px);
+            border-radius: 36px;
+            padding: 32px 24px;
+            flex: 1 1 280px;
+            transition: 0.25s ease;
+            border: 1px solid rgba(0, 160, 255, 0.2);
+        }
+
+        .card:hover {
+            border-color: #00e0ff80;
+            transform: translateY(-6px);
+            background: rgba(20, 40, 55, 0.7);
+            box-shadow: 0 20px 30px -12px #00000080;
+        }
+
+        .card-icon {
+            font-size: 2.5rem;
+            color: #00e0ff;
+            margin-bottom: 20px;
+        }
+
+        .card h3 {
+            font-size: 1.6rem;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+
+        .card p {
+            color: #b9d0e8;
+            line-height: 1.5;
+        }
+
+        .badge-new {
+            background: #0078d4;
+            font-size: 0.7rem;
+            border-radius: 30px;
+            padding: 4px 12px;
+            display: inline-block;
+            margin-top: 16px;
+            font-weight: 600;
+        }
+
+        /* Ninite style banner */
+        .ninite-zone {
+            background: linear-gradient(145deg, #07161f, #010a10);
+            margin: 70px 0;
+            border-radius: 48px;
+            padding: 48px 32px;
+            border: 1px solid #1f6e8c;
+            text-align: center;
+        }
+
+        .ninite-zone h3 {
+            font-size: 2rem;
+            font-weight: 700;
+        }
+
+        .ninite-zone p {
+            max-width: 700px;
+            margin: 16px auto;
+            font-size: 1.1rem;
+        }
+
+        .app-icons {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            margin: 32px 0 24px;
+        }
+
+        .app-icon {
+            background: #0e1c28;
+            border-radius: 60px;
+            padding: 10px 24px;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.9rem;
+        }
+
+        /* Download Section */
+        .download-section {
+            background: rgba(0, 20, 35, 0.7);
+            border-radius: 48px;
+            padding: 48px 32px;
+            margin: 40px 0 60px;
+            text-align: center;
+            border: 1px solid #2c6f8f;
+        }
+
+        .version {
+            font-family: monospace;
+            background: #0b121c;
+            display: inline-block;
+            padding: 6px 16px;
+            border-radius: 32px;
+            margin-bottom: 20px;
+        }
+
+        .btn-download {
+            background: #00a3e0;
+            border: none;
+            padding: 18px 44px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            border-radius: 60px;
+            color: #0a0f1a;
+            transition: 0.2s;
+            margin-top: 20px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        footer {
+            border-top: 1px solid #1e4053;
+            padding: 40px 0 30px;
+            margin-top: 40px;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 20px;
+            font-size: 0.85rem;
+            color: #7e9eb5;
+        }
+
+        @media (max-width: 800px) {
+            .hero-left h2 {
+                font-size: 2.5rem;
+            }
+            .navbar {
+                flex-direction: column;
+                gap: 16px;
+            }
+            .container {
+                padding: 0 24px;
+            }
+        }
+
+        /* Modal simple (demo) */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0,0,0,0.8);
+            backdrop-filter: blur(8px);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+        .modal-content {
+            background: #0d1b24;
+            border-radius: 32px;
+            padding: 32px;
+            max-width: 400px;
+            text-align: center;
+            border: 1px solid #00e0ff;
+        }
+        .close-modal {
+            margin-top: 20px;
+            background: #0078d4;
+            border: none;
+            padding: 8px 24px;
+            border-radius: 40px;
+            color: white;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+<div class="bg-grid"></div>
+<div class="container">
+    <!-- Navegación -->
+    <div class="navbar">
+        <div class="logo">
+            <i class="fas fa-toolbox logo-icon"></i>
+            <h1>ElevenToolbox<span>v1.0</span></h1>
+        </div>
+        <div class="nav-links">
+            <a href="#">Inicio</a>
+            <a href="#">Utilidades</a>
+            <a href="#">Activador</a>
+            <a href="#">Ninite Hub</a>
+            <div class="btn-outline" id="openModalBtn"><i class="fas fa-terminal"></i> Demo</div>
+        </div>
+    </div>
+
+    <!-- Hero principal -->
+    <div class="hero">
+        <div class="hero-left">
+            <div class="hero-badge"><i class="fas fa-bolt"></i> Lanzamiento oficial 2026</div>
+            <h2>Optimiza, activa y domina<br>Windows 11</h2>
+            <p>ElevenToolbox es el conjunto definitivo de utilidades todo-en-uno: optimizador inteligente, activador permanente y próximo sistema tipo Ninite para desplegar apps en segundos.</p>
+            <div class="features-grid-mini">
+               <div class="mini-chip"><i class="fas fa-microchip"></i> Kernel Tweaks</div>
+                <div class="mini-chip"><i class="fas fa-shield-alt"></i> HWID Activation</div>
+                <div class="mini-chip"><i class="fas fa-rocket"></i> Debloat Extreme</div>
+                <!-- <div class="mini-chip"><i class="fas fa-boxes"></i> Ninite-Style</div> -->
+            </div>
+            <div class="btn-group">
+                <button class="btn-primary" id="downloadDemoBtn"><i class="fas fa-download"></i> Descargar ElevenToolbox</button>
+                <button class="btn-secondary" id="learnMoreBtn"><i class="fas fa-info-circle"></i> Explorar utilidades</button>
+            </div>
+        </div>
+        <div class="hero-right">
+            <div class="code-preview">
+                <p><i class="fas fa-chevron-circle-right" style="color:#00e0ff"></i> > Ejecutar ElevenToolbox --optimize --activate</p>
+                <p><span style="color:#6fcf97;">✓ Limpiando residuos del sistema...</span></p>
+                <p><span style="color:#6fcf97;">✓ Aplicando plantilla de rendimiento extremo</span></p>
+                <p><span style="color:#6fcf97;">✓ Activación HWID completada (permanente)</span></p>
+                <p><span style="color:#f2c94c;">[Ninite integrado] 7 apps listas para instalar</span></p>
+                <p><span style="color:#00e0ff;">✔ Windows 11 optimizado y listo.</span></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sección de características principales -->
+    <div class="section-title">
+        <i class="fas fa-cogs"></i> Herramientas de élite
+    </div>
+    <div class="cards">
+        <div class="card">
+            <div class="card-icon"><i class="fas fa-tachometer-alt"></i></div>
+            <h3>Optimizador +</h3>
+            <p>Ajustes avanzados de rendimiento, desactivación de telemetría, servicios innecesarios y latencia reducida para gaming y productividad.</p>
+        </div>
+        <div class="card">
+            <div class="card-icon"><i class="fas fa-key"></i></div>
+            <h3>Activador HWID</h3>
+            <p>Activación permanente genuina para Windows 11 mediante método digital license. Seguro, silencioso y efectivo en un clic.</p>
+            <div class="badge-new">Permanente</div>
+        </div>
+        <div class="card">
+            <div class="card-icon"><i class="fas fa-cube"></i></div>
+            <h3>Ninite Hub</h3>
+            <p>Próximamente: selecciona múltiples apps (Chrome, Steam, VLC, 7-Zip...) e instálalas automáticamente sin bloatware.</p>
+            <div class="badge-new">Coming soon</div>
+        </div>
+        <div class="card">
+            <div class="card-icon"><i class="fas fa-broom"></i></div>
+            <h3>Limpieza Profunda</h3>
+            <p>Elimina bloatware de fábrica, archivos basura y rastros de telemetría de Microsoft para una experiencia más limpia.</p>
+        </div>
+    </div>
+
+    <!-- Bloque inspirado en Ninite + integración futura -->
+    <div class="ninite-zone">
+        <i class="fas fa-box-open" style="font-size: 3rem; color: #00e0ff;"></i>
+        <h3>La experiencia Ninite, dentro de ElevenToolbox</h3>
+        <p>Selecciona aplicaciones populares y nuestro motor las instalará en segundo plano, sin preguntas molestas ni barras de herramientas. El sueño de todo técnico.</p>
+        <div class="app-icons">
+            <span class="app-icon"><i class="fab fa-chrome"></i> Chrome</span>
+            <span class="app-icon"><i class="fab fa-discord"></i> Discord</span>
+            <span class="app-icon"><i class="fas fa-file-archive"></i> 7-Zip</span>
+            <span class="app-icon"><i class="fas fa-video"></i> VLC</span>
+            <span class="app-icon"><i class="fab fa-spotify"></i> Spotify</span>
+            <span class="app-icon"><i class="fab fa-steam"></i> Steam</span>
+        </div>
+        <div><i class="fas fa-code-branch"></i> Integración programada para Q3 2026</div>
+    </div>
+
+    <!-- Sección de descarga con versiones simuladas -->
+    <div class="download-section" id="download">
+        <div class="version"><i class="fab fa-windows"></i> Windows 11 (22H2, 23H2, 24H2) compatible</div>
+        <h2 style="font-size: 2rem;">Descarga gratuita</h2>
+        <p>ElevenToolbox es completamente gratuito, sin publicidad ni software de terceros. Obtén la última versión con optimizador mejorado y activación estable.</p>
+        <button class="btn-download" id="fakeDownloadBtn"><i class="fas fa-flask"></i> Descargar ElevenToolbox Setup (exe)</button>
+        <p style="margin-top: 24px; font-size: 0.8rem;"><i class="fas fa-shield-alt"></i> Checksum SHA-256: 1E3A...F9B2 • Detección 0/65 antivirus</p>
+    </div>
+
+    <footer>
+        <div><i class="far fa-copyright"></i> 2026 ElevenToolbox — Herramienta de código abierto para la comunidad</div>
+        <div>
+            <i class="fab fa-github"></i> GitHub &nbsp;&nbsp;
+            <i class="fab fa-discord"></i> Discord &nbsp;&nbsp;
+            <i class="fas fa-envelope"></i> soporte
+        </div>
+    </footer>
+</div>
+
+<!-- Modal de demo informativo -->
+<div id="demoModal" class="modal">
+    <div class="modal-content">
+        <i class="fas fa-tools" style="font-size: 48px; color:#00e0ff;"></i>
+        <h3 style="margin: 16px 0;">ElevenToolbox Preview</h3>
+        <p>Versión conceptual: integra optimizador de sistema + activador Windows 11 + futuro centro de despliegue estilo Ninite. Interfaz nativa en desarrollo.</p>
+        <button class="close-modal" id="closeModalBtn">Entendido</button>
+    </div>
+</div>
+
+<script>
+    // interacciones simples
+    const modal = document.getElementById('demoModal');
+    const openBtn = document.getElementById('openModalBtn');
+    const closeBtn = document.getElementById('closeModalBtn');
+    const downloadDemo = document.getElementById('downloadDemoBtn');
+    const fakeDownload = document.getElementById('fakeDownloadBtn');
+    const learnMore = document.getElementById('learnMoreBtn');
+
+    function showModal() {
+        modal.style.display = 'flex';
+    }
+    function hideModal() {
+        modal.style.display = 'none';
+    }
+    openBtn.addEventListener('click', showModal);
+    closeBtn.addEventListener('click', hideModal);
+    window.addEventListener('click', (e) => {
+        if (e.target === modal) hideModal();
+    });
+
+    // demo alerts educativas
+    function demoDownload() {
+        alert("[DEMO] ElevenToolbox Setup.exe se descargará en breve.\n\nEste proyecto integra:\n- Activador HWID\n- Optimizador avanzado\n- Futuro sistema Ninite\nVersión estable: próxima release.");
+    }
+    downloadDemo.addEventListener('click', demoDownload);
+    fakeDownload.addEventListener('click', demoDownload);
+    
+    learnMore.addEventListener('click', () => {
+        alert("ElevenToolbox reúne en una sola interfaz:\n🔧 Optimización de rendimiento y privacidad.\n🔑 Activación permanente para Windows 11.\n📦 Despliegue automático de aplicaciones (Ninite-like).\n\nPróximamente con más módulos y soporte extendido.");
+    });
+</script>
+</body>
+</html>

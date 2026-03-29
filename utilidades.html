@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Utilidades - ElevenToolbox | Kit definitivo para Windows 11</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: radial-gradient(circle at 20% 30%, #0a0c12 0%, #030507 100%);
+            color: #eef2ff;
+            line-height: 1.4;
+            scroll-behavior: smooth;
+        }
+
+        .bg-grid {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(0, 255, 255, 0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 255, 255, 0.02) 1px, transparent 1px);
+            background-size: 48px 48px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 32px;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Header / Nav */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 24px 0 20px;
+            flex-wrap: wrap;
+            border-bottom: 1px solid rgba(0, 255, 255, 0.2);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .logo-icon {
+            font-size: 2.4rem;
+            color: #00e0ff;
+            text-shadow: 0 0 6px #00e0ff80;
+        }
+
+        .logo h1 {
+            font-size: 1.9rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            background: linear-gradient(135deg, #FFFFFF, #00e0ff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .logo span {
+            font-size: 0.9rem;
+            font-weight: 500;
+            background: #1e2a3a80;
+            padding: 4px 10px;
+            border-radius: 40px;
+            backdrop-filter: blur(4px);
+            margin-left: 8px;
+            color: #b0f0ff;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 32px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #cbd5e6;
+            font-weight: 500;
+            transition: 0.2s;
+            font-size: 1rem;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            color: #00e0ff;
+            text-shadow: 0 0 3px #00e0ff;
+        }
+
+        .btn-outline {
+            border: 1px solid #00e0ff;
+            background: transparent;
+            padding: 8px 20px;
+            border-radius: 40px;
+            font-weight: 600;
+            color: #00e0ff;
+            transition: 0.2s;
+            cursor: pointer;
+        }
+
+        .btn-outline:hover {
+            background: #00e0ff20;
+            box-shadow: 0 0 8px #00e0ff40;
+        }
+
+        /* Page Header */
+        .page-header {
+            padding: 48px 0 24px;
+            text-align: center;
+        }
+
+        .page-header h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #ffffff, #7ac9ff, #00e0ff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 16px;
+        }
+
+        .page-header p {
+            font-size: 1.2rem;
+            color: #b0c4de;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* Stats Bar */
+        .stats-bar {
+            display: flex;
+            justify-content: center;
+            gap: 48px;
+            flex-wrap: wrap;
+            background: rgba(0, 30, 45, 0.5);
+            backdrop-filter: blur(8px);
+            border-radius: 80px;
+            padding: 16px 32px;
+            margin: 24px 0 40px;
+            border: 1px solid #2a6b8a;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: #00e0ff;
+        }
+
+        .stat-label {
+            font-size: 0.85rem;
+            color: #9ab3cc;
+        }
+
+        /* Filtros de categorías */
+        .filters {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 48px;
+        }
+
+        .filter-btn {
+            background: rgba(20, 35, 50, 0.7);
+            border: 1px solid #2a5f7a;
+            padding: 10px 24px;
+            border-radius: 40px;
+            font-weight: 600;
+            color: #cbdae9;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 0.9rem;
+        }
+
+        .filter-btn i {
+            margin-right: 8px;
+        }
+
+        .filter-btn.active, .filter-btn:hover {
+            background: #00a6d4;
+            border-color: #00e0ff;
+            color: white;
+            box-shadow: 0 0 12px #00e0ff60;
+        }
+
+        /* Grid de utilidades */
+        .utilities-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            gap: 28px;
+            margin-bottom: 60px;
+        }
+
+        .util-card {
+            background: rgba(12, 22, 35, 0.7);
+            backdrop-filter: blur(8px);
+            border-radius: 28px;
+            padding: 24px;
+            border: 1px solid rgba(0, 160, 255, 0.25);
+            transition: all 0.25s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .util-card:hover {
+            transform: translateY(-5px);
+            border-color: #00e0ff;
+            background: rgba(20, 45, 65, 0.7);
+            box-shadow: 0 20px 30px -12px black;
+        }
+
+        .card-badge {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: #0f212e;
+            padding: 4px 12px;
+            border-radius: 30px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            color: #7ad0ff;
+            border: 1px solid #2c6b8a;
+        }
+
+        .util-icon {
+            font-size: 2.8rem;
+            color: #00e0ff;
+            margin-bottom: 16px;
+        }
+
+        .util-card h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .util-desc {
+            color: #b9d0e8;
+            line-height: 1.5;
+            margin-bottom: 20px;
+            font-size: 0.9rem;
+        }
+
+        .util-features {
+            list-style: none;
+            margin-bottom: 24px;
+        }
+
+        .util-features li {
+            font-size: 0.85rem;
+            margin-bottom: 8px;
+            color: #b4d0f0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .util-features li i {
+            color: #00e0ff;
+            font-size: 0.75rem;
+            width: 20px;
+        }
+
+        .btn-util {
+            background: transparent;
+            border: 1px solid #2f8eb0;
+            padding: 8px 20px;
+            border-radius: 32px;
+            font-weight: 600;
+            color: #b3e4ff;
+            cursor: pointer;
+            transition: 0.2s;
+            width: 100%;
+            font-size: 0.9rem;
+        }
+
+        .btn-util:hover {
+            background: #0078aa30;
+            border-color: #00e0ff;
+            color: white;
+        }
+
+        /* Sección próximamente */
+        .coming-soon-section {
+            text-align: center;
+            margin: 40px 0 60px;
+            padding: 40px;
+            background: linear-gradient(135deg, #05161f, #010b10);
+            border-radius: 48px;
+            border: 1px dashed #2f8eb0;
+        }
+
+        .coming-soon-section i {
+            font-size: 3rem;
+            color: #4b8cae;
+        }
+
+        /* Footer */
+        footer {
+            border-top: 1px solid #1e4053;
+            padding: 40px 0 30px;
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 20px;
+            font-size: 0.85rem;
+            color: #7e9eb5;
+        }
+
+        @media (max-width: 800px) {
+            .container {
+                padding: 0 20px;
+            }
+            .navbar {
+                flex-direction: column;
+                gap: 16px;
+            }
+            .stats-bar {
+                gap: 24px;
+            }
+            .page-header h1 {
+                font-size: 2.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="bg-grid"></div>
+<div class="container">
+    <!-- Navegación -->
+    <div class="navbar">
+        <a href="index.html" class="logo" style="text-decoration: none;">
+            <i class="fas fa-toolbox logo-icon"></i>
+            <h1>ElevenToolbox<span>v1.0</span></h1>
+        </a>
+        <div class="nav-links">
+            <a href="index.html">Inicio</a>
+            <a href="utilidades.html" class="active">Utilidades</a>
+            <a href="#">Activador</a>
+            <a href="#">Ninite Hub</a>
+            <div class="btn-outline" id="demoBtn"><i class="fas fa-flask"></i> Próximamente</div>
+        </div>
+    </div>
+
+    <!-- Encabezado de la página -->
+    <div class="page-header">
+        <h1><i class="fas fa-cogs"></i> Biblioteca de utilidades</h1>
+        <p>Más de 20 herramientas integradas para optimizar, limpiar, personalizar y exprimir al máximo Windows 11. Cada utilidad ha sido diseñada para ser segura, rápida y eficaz.</p>
+    </div>
+
+    <!-- Stats -->
+    <div class="stats-bar">
+        <div class="stat-item"><div class="stat-number">24</div><div class="stat-label">Utilidades</div></div>
+        <div class="stat-item"><div class="stat-number">7</div><div class="stat-label">Categorías</div></div>
+        <div class="stat-item"><div class="stat-number">1-Click</div><div class="stat-label">Activación</div></div>
+        <div class="stat-item"><div class="stat-number">Ninite</div><div class="stat-label">Integración</div></div>
+    </div>
+
+    <!-- Filtros -->
+    <div class="filters" id="filters">
+        <button class="filter-btn active" data-category="all"><i class="fas fa-th-large"></i> Todas</button>
+        <button class="filter-btn" data-category="optimizacion"><i class="fas fa-tachometer-alt"></i> Optimización</button>
+        <button class="filter-btn" data-category="limpieza"><i class="fas fa-broom"></i> Limpieza</button>
+        <button class="filter-btn" data-category="privacidad"><i class="fas fa-shield-alt"></i> Privacidad</button>
+        <button class="filter-btn" data-category="personalizacion"><i class="fas fa-palette"></i> Personalización</button>
+        <button class="filter-btn" data-category="sistema"><i class="fas fa-microchip"></i> Sistema</button>
+        <button class="filter-btn" data-category="activador"><i class="fas fa-key"></i> Activación</button>
+    </div>
+
+    <!-- Grid de utilidades (JavaScript dinámico) -->
+    <div class="utilities-grid" id="utilitiesGrid"></div>
+
+    <!-- Sección de próximas utilidades -->
+    <div class="coming-soon-section">
+        <i class="fas fa-hourglass-half"></i>
+        <h3 style="margin: 16px 0;">Más herramientas en desarrollo</h3>
+        <p>Modo juego extremo, desinstalador masivo de bloatware, tweaks de red y un panel de control avanzado. La versión 2.0 traerá un sistema de plugins.</p>
+    </div>
+
+    <footer>
+        <div><i class="far fa-copyright"></i> 2026 ElevenToolbox — Código abierto, comunidad activa</div>
+        <div><i class="fab fa-github"></i> GitHub &nbsp; <i class="fab fa-discord"></i> Discord &nbsp; <i class="fas fa-envelope"></i> Soporte</div>
+    </footer>
+</div>
+
+<script>
+    // Base de datos de utilidades
+    const utilities = [
+        { id: 1, name: "Optimizador de Rendimiento", category: "optimizacion", icon: "fa-tachometer-alt", desc: "Ajusta servicios, prioridad de procesos y efectos visuales para maximizar FPS y capacidad de respuesta.", features: ["Modo juego automático", "Desactivar efectos innecesarios", "Gestionar procesos en segundo plano"] },
+        { id: 2, name: "Activador HWID Permanente", category: "activador", icon: "fa-key", desc: "Activa Windows 11 de forma nativa mediante licencia digital vinculada al hardware.", features: ["Activación silenciosa", "Sin parches en memoria", "Válido para Windows 11/10"] },
+        { id: 3, name: "Limpieza Profunda", category: "limpieza", icon: "fa-trash-alt", desc: "Elimina archivos temporales, cachés obsoletos y basura acumulada.", features: ["Limpieza de Windows Update", "Papelera y logs del sistema", "Hasta 5GB+ liberados"] },
+        { id: 4, name: "Desbloat Wizard", category: "limpieza", icon: "fa-wind", desc: "Desinstala apps preinstaladas de Microsoft, bloatware y telemetría agresiva.", features: ["Lista negra personalizable", "Remoción masiva de paquetes", "Copia de seguridad"] },
+        { id: 5, name: "Privacidad Extrema", category: "privacidad", icon: "fa-user-secret", desc: "Desactiva telemetría, keyloggers, publicidad personalizada y cortafuegos avanzado.", features: ["Bloqueo de telemetría", "Desactivar Cortana", "Políticas de grupo optimizadas"] },
+        { id: 6, name: "Personalización Total", category: "personalizacion", icon: "fa-palette", desc: "Cambia temas, menú contextual, transparencias y comportamientos visuales.", features: ["Restaurar menú clásico", "Personalizar el explorador", "Ajustes de barra de tareas"] },
+        { id: 7, name: "Reparador de Archivos", category: "sistema", icon: "fa-wrench", desc: "Escanea y repara archivos del sistema dañados (SFC, DISM, HealthCheck).", features: ["DISM online", "SFC ScanNow", "Verificación de integridad"] },
+        { id: 8, name: "Administrador de Arranque", category: "sistema", icon: "fa-power-off", desc: "Controla programas de inicio, servicios y tiempos de boot.", features: ["Retrasar servicios", "Editar entrada de arranque", "Modo seguro rápido"] },
+        { id: 9, name: "Net Optimizer", category: "optimizacion", icon: "fa-wifi", desc: "Ajusta TCP/IP, MTU y prioridad de red para reducir latencia en juegos y streaming.", features: ["Configuración gaming", "Resetear pila TCP", "Optimización de ancho de banda"] },
+        { id: 10, name: "Desactivar Windows Defender (Opcional)", category: "privacidad", icon: "fa-shield-virus", desc: "Desactiva permanentemente Defender cuando interfiere con herramientas legítimas.", features: ["Modo desactivación con restauración", "Exclusiones automáticas"] },
+        { id: 11, name: "Explorer Tweaker", category: "personalizacion", icon: "fa-folder-open", desc: "Añade pestañas extra, opciones avanzadas y quita 'OneDrive' del explorador.", features: ["Quitar OneDrive", "Añadir 'Abrir con' extendido", "Miniaturas mejoradas"] },
+        { id: 12, name: "Power Plan Ultimate", category: "optimizacion", icon: "fa-bolt", desc: "Habilita el plan de energía 'Rendimiento Máximo' oculto y ajusta suspensión.", features: ["USB selectivo desactivado", "CPU al 100%", "Administración de energía avanzada"] },
+        { id: 13, name: "Kernel Isolation Toggle", category: "sistema", icon: "fa-microchip", desc: "Activa o desactiva aislamiento del núcleo (Virtualización) para compatibilidad.", features: ["Integridad de memoria", "Seguridad basada en virtualización"] },
+        { id: 14, name: "Activador KMS38 (Alternativo)", category: "activador", icon: "fa-clock", desc: "Método de activación hasta 2038 para sistemas con hardware específico.", features: ["Compatibilidad extendida", "Modo offline"] }
+    ];
+
+    // función para renderizar según categoría
+    function renderUtilities(category) {
+        const grid = document.getElementById('utilitiesGrid');
+        let filtered = utilities;
+        if (category !== 'all') {
+            filtered = utilities.filter(util => util.category === category);
+        }
+        if (filtered.length === 0) {
+            grid.innerHTML = `<div style="grid-column:1/-1; text-align:center; padding:60px;">No hay utilidades en esta categoría aún.<br>🚀 Próximamente más herramientas.</div>`;
+            return;
+        }
+        let html = '';
+        filtered.forEach(util => {
+            html += `
+                <div class="util-card" data-category="${util.category}">
+                    <div class="card-badge">${util.category === 'activador' ? 'Activación' : util.category === 'optimizacion' ? 'Rendimiento' : util.category === 'limpieza' ? 'Limpieza' : util.category === 'privacidad' ? 'Privacidad' : util.category === 'personalizacion' ? 'Personaliza' : 'Sistema'}</div>
+                    <div class="util-icon"><i class="fas ${util.icon}"></i></div>
+                    <h3>${util.name}</h3>
+                    <div class="util-desc">${util.desc}</div>
+                    <ul class="util-features">
+                        ${util.features.map(f => `<li><i class="fas fa-check-circle"></i> ${f}</li>`).join('')}
+                    </ul>
+                    <button class="btn-util" onclick="showUtilInfo('${util.name.replace(/'/g, "\\'")}')"><i class="fas fa-play-circle"></i> Ejecutar utilidad</button>
+                </div>
+            `;
+        });
+        grid.innerHTML = html;
+    }
+
+    // función para demo de ejecución
+    window.showUtilInfo = function(utilName) {
+        alert(`⚡ ElevenToolbox - ${utilName}\n\nEsta utilidad se ejecutará con privilegios administrativos.\n\n✅ Característica optimizada para Windows 11.\n🚀 Próximamente versión portable completa.`);
+    }
+
+    // eventos de filtros
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    let currentCategory = 'all';
+    filterBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            filterBtns.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            currentCategory = btn.getAttribute('data-category');
+            renderUtilities(currentCategory);
+        });
+    });
+
+    // demo del botón nav
+    document.getElementById('demoBtn').addEventListener('click', () => {
+        alert("🚀 ElevenToolbox integra un potente gestor de utilidades + Activador HWID + futuro Ninite Hub. La versión estable llegará pronto con todas estas herramientas listas para 1 clic.");
+    });
+
+    // render inicial
+    renderUtilities('all');
+</script>
+</body>
+</html>
