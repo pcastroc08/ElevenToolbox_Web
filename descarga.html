@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Descargar - ElevenToolbox | Suite definitiva para Windows 11</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: radial-gradient(circle at 20% 30%, #0a0c12 0%, #030507 100%);
+            color: #eef2ff;
+            line-height: 1.5;
+            min-height: 100vh;
+        }
+
+        .bg-grid {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(0, 255, 255, 0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 255, 255, 0.02) 1px, transparent 1px);
+            background-size: 48px 48px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 32px;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Header */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 24px 0 20px;
+            flex-wrap: wrap;
+            border-bottom: 1px solid rgba(0, 255, 255, 0.2);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .logo-icon {
+            font-size: 2.4rem;
+            color: #00e0ff;
+            text-shadow: 0 0 6px #00e0ff80;
+        }
+
+        .logo h1 {
+            font-size: 1.9rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            background: linear-gradient(135deg, #FFFFFF, #00e0ff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .logo span {
+            font-size: 0.9rem;
+            font-weight: 500;
+            background: #1e2a3a80;
+            padding: 4px 10px;
+            border-radius: 40px;
+            backdrop-filter: blur(4px);
+            margin-left: 8px;
+            color: #b0f0ff;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 32px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #cbd5e6;
+            font-weight: 500;
+            transition: 0.2s;
+            font-size: 1rem;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            color: #00e0ff;
+            text-shadow: 0 0 3px #00e0ff;
+        }
+
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            padding: 50px 0 40px;
+        }
+
+        .hero-badge {
+            background: #0f212e;
+            display: inline-block;
+            padding: 6px 14px;
+            border-radius: 30px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            color: #7ad0ff;
+            border: 1px solid #2c5268;
+            margin-bottom: 20px;
+        }
+
+        .hero h2 {
+            font-size: 3rem;
+            font-weight: 800;
+            background: linear-gradient(to right, #ffffff, #7ac9ff, #00e0ff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 16px;
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            color: #b9c7d9;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Download Card */
+        .download-card {
+            background: linear-gradient(135deg, #0a1620, #050a10);
+            border-radius: 48px;
+            border: 1px solid #2a6b8a;
+            padding: 48px;
+            margin: 30px 0 40px;
+            text-align: center;
+        }
+
+        .version-badge {
+            display: inline-block;
+            background: #00e0ff20;
+            padding: 6px 16px;
+            border-radius: 30px;
+            font-size: 0.8rem;
+            color: #00e0ff;
+            margin-bottom: 20px;
+            border: 1px solid #00e0ff40;
+        }
+
+        .file-info {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+            margin: 20px 0;
+            font-size: 0.85rem;
+            color: #8aaec0;
+        }
+
+        .file-info i {
+            margin-right: 6px;
+            color: #00e0ff;
+        }
+
+        .btn-download {
+            background: linear-gradient(95deg, #0078d4, #00b0f0);
+            border: none;
+            padding: 18px 48px;
+            border-radius: 60px;
+            font-weight: 800;
+            font-size: 1.2rem;
+            color: white;
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            transition: all 0.2s ease;
+            cursor: pointer;
+            box-shadow: 0 8px 20px #00a6ff40;
+            margin: 20px 0;
+        }
+
+        .btn-download:hover {
+            transform: scale(1.02);
+            background: linear-gradient(95deg, #0088e8, #00c4ff);
+            box-shadow: 0 12px 28px #00a6ff60;
+        }
+
+        /* Requisitos */
+        .requirements {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin: 40px 0;
+        }
+
+        .req-card {
+            background: rgba(12, 22, 35, 0.65);
+            backdrop-filter: blur(8px);
+            border-radius: 24px;
+            padding: 24px;
+            border: 1px solid rgba(0, 160, 255, 0.2);
+        }
+
+        .req-card h3 {
+            font-size: 1.2rem;
+            margin-bottom: 16px;
+            color: #00e0ff;
+        }
+
+        .req-card ul {
+            list-style: none;
+        }
+
+        .req-card li {
+            margin: 10px 0;
+            font-size: 0.9rem;
+            color: #cbd5e6;
+        }
+
+        .req-card li i {
+            width: 24px;
+            color: #00e0ff;
+            margin-right: 8px;
+        }
+
+        /* Versiones anteriores */
+        .old-versions {
+            background: rgba(8, 18, 28, 0.5);
+            border-radius: 24px;
+            padding: 30px;
+            margin: 40px 0;
+        }
+
+        .old-versions h3 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .version-list {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .version-item {
+            background: rgba(0, 30, 45, 0.5);
+            padding: 12px 24px;
+            border-radius: 40px;
+            text-decoration: none;
+            color: #b3e4ff;
+            transition: 0.2s;
+            font-size: 0.9rem;
+        }
+
+        .version-item:hover {
+            background: #00a6d4;
+            color: white;
+        }
+
+        /* FAQ */
+        .faq-section {
+            margin: 50px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 30px;
+        }
+
+        .section-title i {
+            color: #00e0ff;
+            margin-right: 12px;
+        }
+
+        .faq-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 20px;
+        }
+
+        .faq-item {
+            background: rgba(8, 18, 28, 0.5);
+            border-radius: 16px;
+            padding: 20px;
+            border-left: 3px solid #00e0ff;
+        }
+
+        .faq-question {
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: #00e0ff;
+        }
+
+        .faq-answer {
+            color: #b9c7d9;
+            font-size: 0.85rem;
+        }
+
+        footer {
+            border-top: 1px solid #1e4053;
+            padding: 40px 0 30px;
+            margin-top: 40px;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 20px;
+            font-size: 0.85rem;
+            color: #7e9eb5;
+        }
+
+        @media (max-width: 800px) {
+            .container {
+                padding: 0 20px;
+            }
+            .navbar {
+                flex-direction: column;
+                gap: 16px;
+            }
+            .hero h2 {
+                font-size: 2rem;
+            }
+            .download-card {
+                padding: 30px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="bg-grid"></div>
+<div class="container">
+    <!-- Navigation -->
+    <div class="navbar">
+        <a href="index.html" class="logo">
+            <i class="fas fa-toolbox logo-icon"></i>
+            <h1>ElevenToolbox<span>v1.0</span></h1>
+        </a>
+        <div class="nav-links">
+            <a href="index.html">Inicio</a>
+            <a href="utilidades.html">Utilidades</a>
+            <a href="activador.html">Activador</a>
+            <a href="ninite.html">Ninite Hub</a>
+            <a href="descargar.html" class="active">Descargar</a>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <div class="hero">
+        <div class="hero-badge"><i class="fas fa-download"></i> Descarga gratuita</div>
+        <h2>Descargar ElevenToolbox</h2>
+        <p>Obtenga la ultima version de la suite definitiva para Windows 11</p>
+    </div>
+
+    <!-- Download Card -->
+    <div class="download-card">
+        <div class="version-badge">
+            <i class="fas fa-check-circle"></i> Version estable
+        </div>
+        <h3 style="font-size: 2rem; margin-bottom: 10px;">ElevenToolbox v1.0</h3>
+        <div class="file-info">
+            <span><i class="fas fa-hdd"></i> Tamaño: 8.4 MB</span>
+            <span><i class="fas fa-calendar"></i> Fecha: 15/03/2026</span>
+            <span><i class="fas fa-tag"></i> Windows 11 / 10</span>
+        </div>
+        <button class="btn-download" id="mainDownloadBtn">
+            <i class="fas fa-download"></i> Descargar ahora
+        </button>
+        <div class="file-info">
+            <span><i class="fas fa-shield-alt"></i> SHA-256: 7F3E9A2B1C8D4F6E0A5B3C7D9E1F2A4B6C8D0E2F4A6B8C0D2E4F6A8B0C2D4E6F</span>
+        </div>
+    </div>
+
+    <!-- Requisitos del sistema -->
+    <div class="requirements">
+        <div class="req-card">
+            <h3><i class="fas fa-microchip"></i> Requisitos minimos</h3>
+            <ul>
+                <li><i class="fas fa-check"></i> Windows 11 / Windows 10 (64-bit)</li>
+                <li><i class="fas fa-check"></i> Procesador: 1 GHz o superior</li>
+                <li><i class="fas fa-check"></i> RAM: 2 GB (4 GB recomendado)</li>
+                <li><i class="fas fa-check"></i> Espacio: 50 MB disponibles</li>
+            </ul>
+        </div>
+        <div class="req-card">
+            <h3><i class="fas fa-shield-alt"></i> Requisitos adicionales</h3>
+            <ul>
+                <li><i class="fas fa-check"></i> Permisos de administrador</li>
+                <li><i class="fas fa-check"></i> Conexion a internet (activacion)</li>
+                <li><i class="fas fa-check"></i> .NET Framework 4.7.2 o superior</li>
+                <li><i class="fas fa-check"></i> PowerShell 5.1 o superior</li>
+            </ul>
+        </div>
+        <div class="req-card">
+            <h3><i class="fas fa-check-circle"></i> Compatibilidad</h3>
+            <ul>
+                <li><i class="fas fa-check"></i> Windows 11 21H2, 22H2, 23H2, 24H2</li>
+                <li><i class="fas fa-check"></i> Windows 10 20H2 y superiores</li>
+                <li><i class="fas fa-check"></i> Ediciones: Home, Pro, Enterprise, Education</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Versiones anteriores -->
+    <div class="old-versions">
+        <h3><i class="fas fa-history"></i> Versiones anteriores</h3>
+        <div class="version-list">
+            <a href="#" class="version-item">ElevenToolbox v0.9 (Beta)</a>
+            <a href="#" class="version-item">ElevenToolbox v0.8 (Alpha)</a>
+        </div>
+    </div>
+
+    <!-- FAQ -->
+    <div class="faq-section">
+        <div class="section-title">
+            <i class="fas fa-question-circle"></i> Preguntas frecuentes
+        </div>
+        <div class="faq-grid">
+            <div class="faq-item">
+                <div class="faq-question">¿Como instalo ElevenToolbox?</div>
+                <div class="faq-answer">Simplemente descargue el archivo .exe, ejecutelo como administrador y siga el asistente de instalacion. No requiere configuracion adicional.</div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">¿Es realmente gratuito?</div>
+                <div class="faq-answer">Si, ElevenToolbox es completamente gratuito y de codigo abierto. No contiene publicidad ni software de terceros.</div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">¿Mi antivirus detectara una amenaza?</div>
+                <div class="faq-answer">Algunos antivirus pueden generar falsos positivos debido a que la herramienta modifica configuraciones del sistema. ElevenToolbox es 100% seguro.</div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">¿Como actualizo a una nueva version?</div>
+                <div class="faq-answer">La herramienta incluye un actualizador automatico. Tambien puede descargar la ultima version desde esta pagina.</div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">¿Necesito permisos de administrador?</div>
+                <div class="faq-answer">Si, para modificar configuraciones del sistema y realizar la activacion se requieren permisos de administrador.</div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">¿Donde puedo reportar errores?</div>
+                <div class="faq-answer">Puede reportar errores en nuestro repositorio de GitHub o a traves del correo de soporte.</div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div><i class="far fa-copyright"></i> 2026 ElevenToolbox — Suite gratuita para Windows 11</div>
+        <div>
+            <i class="fab fa-github"></i> GitHub &nbsp;&nbsp;
+            <i class="fab fa-discord"></i> Discord &nbsp;&nbsp;
+            <i class="fas fa-envelope"></i> Soporte
+        </div>
+    </footer>
+</div>
+
+<script>
+    // Funcion para simular descarga
+    function simulateDownload(version = "v1.0") {
+        const btn = document.getElementById("mainDownloadBtn");
+        const originalText = btn.innerHTML;
+        
+        btn.innerHTML = '<i class="fas fa-spinner fa-pulse"></i> Preparando descarga...';
+        btn.disabled = true;
+        
+        setTimeout(() => {
+            btn.innerHTML = '<i class="fas fa-check"></i> Descarga iniciada';
+            
+            setTimeout(() => {
+                btn.innerHTML = originalText;
+                btn.disabled = false;
+            }, 2000);
+            
+            // Crear blob y simular descarga
+            const content = `ElevenToolbox ${version}
+            
+ElevenToolbox es una suite de utilidades para Windows 11 que incluye:
+- Optimizador de rendimiento
+- Activador HWID permanente
+- Limpieza profunda y desbloat
+- Configuracion de privacidad
+- Personalizacion de Windows 11
+- Ninite Hub (instalador masivo de aplicaciones)
+
+Para instalar, ejecute este archivo como administrador y siga las instrucciones.
+
+Gracias por usar ElevenToolbox.`;
+            
+            const blob = new Blob([content], { type: "application/x-msdownload" });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement("a");
+            a.href = url;
+            a.download = `ElevenToolbox_Setup_${version.replace(/\./g, "_")}.exe`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            
+        }, 1500);
+    }
+    
+    // Evento del boton principal
+    document.getElementById("mainDownloadBtn").addEventListener("click", () => {
+        simulateDownload("v1.0");
+    });
+    
+    // Eventos para versiones anteriores
+    const oldVersionLinks = document.querySelectorAll(".version-item");
+    oldVersionLinks.forEach((link, index) => {
+        link.addEventListener("click", (e) => {
+            e.preventDefault();
+            const version = index === 0 ? "v0.9" : "v0.8";
+            simulateDownload(version);
+        });
+    });
+</script>
+</body>
+</html>
