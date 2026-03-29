@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Activador - ElevenToolbox | Activación HWID para Windows 11</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: radial-gradient(circle at 20% 30%, #0a0c12 0%, #030507 100%);
+            color: #eef2ff;
+            line-height: 1.5;
+            min-height: 100vh;
+        }
+
+        .bg-grid {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(0, 255, 255, 0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 255, 255, 0.02) 1px, transparent 1px);
+            background-size: 48px 48px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .container {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 0 32px;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Header */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 24px 0 20px;
+            flex-wrap: wrap;
+            border-bottom: 1px solid rgba(0, 255, 255, 0.2);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .logo-icon {
+            font-size: 2.4rem;
+            color: #00e0ff;
+            text-shadow: 0 0 6px #00e0ff80;
+        }
+
+        .logo h1 {
+            font-size: 1.9rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            background: linear-gradient(135deg, #FFFFFF, #00e0ff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .logo span {
+            font-size: 0.9rem;
+            font-weight: 500;
+            background: #1e2a3a80;
+            padding: 4px 10px;
+            border-radius: 40px;
+            backdrop-filter: blur(4px);
+            margin-left: 8px;
+            color: #b0f0ff;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 32px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #cbd5e6;
+            font-weight: 500;
+            transition: 0.2s;
+            font-size: 1rem;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            color: #00e0ff;
+            text-shadow: 0 0 3px #00e0ff;
+        }
+
+        .btn-outline {
+            border: 1px solid #00e0ff;
+            background: transparent;
+            padding: 8px 20px;
+            border-radius: 40px;
+            font-weight: 600;
+            color: #00e0ff;
+            transition: 0.2s;
+            cursor: pointer;
+        }
+
+        .btn-outline:hover {
+            background: #00e0ff20;
+            box-shadow: 0 0 8px #00e0ff40;
+        }
+
+        /* Hero Section */
+        .hero {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            padding: 40px 0 30px;
+            gap: 40px;
+        }
+
+        .hero-left {
+            flex: 1;
+        }
+
+        .hero-badge {
+            background: #0f212e;
+            display: inline-block;
+            padding: 6px 14px;
+            border-radius: 30px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            color: #7ad0ff;
+            border: 1px solid #2c5268;
+            margin-bottom: 24px;
+        }
+
+        .hero-left h2 {
+            font-size: 3rem;
+            font-weight: 800;
+            line-height: 1.2;
+            background: linear-gradient(to right, #ffffff, #7ac9ff, #00e0ff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 20px;
+        }
+
+        .hero-left p {
+            font-size: 1.1rem;
+            color: #b9c7d9;
+            margin-bottom: 32px;
+            max-width: 500px;
+        }
+
+        .hero-right {
+            flex: 0.8;
+            background: rgba(8, 18, 28, 0.6);
+            backdrop-filter: blur(12px);
+            border-radius: 32px;
+            padding: 30px;
+            border: 1px solid #2d5f7e;
+            text-align: center;
+        }
+
+        .activation-status {
+            margin-bottom: 20px;
+        }
+
+        .status-icon {
+            font-size: 3rem;
+            margin-bottom: 10px;
+        }
+
+        .status-text {
+            font-size: 1.3rem;
+            font-weight: 700;
+        }
+
+        .status-text.active {
+            color: #2ecc71;
+        }
+
+        .status-text.inactive {
+            color: #e74c3c;
+        }
+
+        .hwid-badge {
+            background: #0f212e;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-family: monospace;
+            font-size: 0.8rem;
+            margin: 15px 0;
+            display: inline-block;
+        }
+
+        /* Features Section */
+        .features-section {
+            margin: 60px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 40px;
+        }
+
+        .section-title i {
+            color: #00e0ff;
+            margin-right: 12px;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+        }
+
+        .feature-card {
+            background: rgba(12, 22, 35, 0.65);
+            backdrop-filter: blur(8px);
+            border-radius: 24px;
+            padding: 28px;
+            border: 1px solid rgba(0, 160, 255, 0.2);
+            transition: 0.25s ease;
+            text-align: center;
+        }
+
+        .feature-card:hover {
+            border-color: #00e0ff80;
+            transform: translateY(-5px);
+            background: rgba(20, 40, 55, 0.7);
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            color: #00e0ff;
+            margin-bottom: 16px;
+        }
+
+        .feature-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+        }
+
+        .feature-card p {
+            color: #b9d0e8;
+            font-size: 0.9rem;
+        }
+
+        /* FAQ Section */
+        .faq-section {
+            margin: 60px 0;
+        }
+
+        .faq-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 20px;
+        }
+
+        .faq-item {
+            background: rgba(8, 18, 28, 0.5);
+            border-radius: 16px;
+            padding: 20px;
+            border-left: 3px solid #00e0ff;
+        }
+
+        .faq-question {
+            font-weight: 700;
+            font-size: 1rem;
+            margin-bottom: 10px;
+            color: #00e0ff;
+        }
+
+        .faq-answer {
+            color: #b9c7d9;
+            font-size: 0.85rem;
+            line-height: 1.5;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(135deg, #05161f, #010b10);
+            border-radius: 32px;
+            padding: 48px;
+            text-align: center;
+            margin: 40px 0 60px;
+            border: 1px solid #1f6e8c;
+        }
+
+        .cta-section h3 {
+            font-size: 1.8rem;
+            margin-bottom: 16px;
+        }
+
+        .cta-section p {
+            color: #b9c7d9;
+            margin-bottom: 24px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(95deg, #0078d4, #00b0f0);
+            border: none;
+            padding: 14px 36px;
+            border-radius: 44px;
+            font-weight: 700;
+            font-size: 1rem;
+            color: white;
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            transition: all 0.2s ease;
+            cursor: pointer;
+            box-shadow: 0 6px 14px #00a6ff30;
+        }
+
+        .btn-primary:hover {
+            transform: scale(1.02);
+            background: linear-gradient(95deg, #0088e8, #00c4ff);
+            box-shadow: 0 10px 22px #00a6ff60;
+        }
+
+        .btn-secondary {
+            background: rgba(20, 30, 45, 0.7);
+            backdrop-filter: blur(8px);
+            border: 1px solid #3c6e8c;
+            padding: 12px 28px;
+            border-radius: 44px;
+            font-weight: 600;
+            color: #d0eaff;
+            transition: 0.2s;
+            cursor: pointer;
+        }
+
+        .warning-box {
+            background: rgba(243, 156, 18, 0.1);
+            border-left: 4px solid #f39c12;
+            padding: 16px 20px;
+            border-radius: 12px;
+            margin: 20px 0;
+        }
+
+        .warning-box i {
+            color: #f39c12;
+            margin-right: 10px;
+        }
+
+        footer {
+            border-top: 1px solid #1e4053;
+            padding: 40px 0 30px;
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 20px;
+            font-size: 0.85rem;
+            color: #7e9eb5;
+        }
+
+        @media (max-width: 800px) {
+            .container {
+                padding: 0 20px;
+            }
+            .navbar {
+                flex-direction: column;
+                gap: 16px;
+            }
+            .hero-left h2 {
+                font-size: 2rem;
+            }
+            .hero {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="bg-grid"></div>
+<div class="container">
+    <!-- Navigation -->
+    <div class="navbar">
+        <a href="index.html" class="logo">
+            <i class="fas fa-toolbox logo-icon"></i>
+            <h1>ElevenToolbox<span>v1.0</span></h1>
+        </a>
+        <div class="nav-links">
+            <a href="index.html">Inicio</a>
+            <a href="utilidades.html">Utilidades</a>
+            <a href="activador.html" class="active">Activador</a>
+            <a href="#">Ninite Hub</a>
+            <div class="btn-outline" id="downloadBtn"><i class="fas fa-download"></i> Descargar</div>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <div class="hero">
+        <div class="hero-left">
+            <div class="hero-badge"><i class="fas fa-key"></i> Activacion HWID</div>
+            <h2>Activa Windows 11<br>de forma permanente</h2>
+            <p>ElevenToolbox utiliza el metodo HWID (Hardware ID) para activar Windows 11 de forma permanente, vinculando la licencia a su hardware.</p>
+            <div style="display: flex; gap: 15px; flex-wrap: wrap;">
+                <button class="btn-primary" id="activateBtn"><i class="fas fa-bolt"></i> Activar Windows 11</button>
+                <button class="btn-secondary" id="checkStatusBtn"><i class="fas fa-search"></i> Verificar estado</button>
+            </div>
+            <div class="warning-box" style="margin-top: 25px;">
+                <i class="fas fa-shield-alt"></i>
+                <span style="font-size: 0.85rem;">Metodo seguro, limpio y sin modificaciones permanentes en el sistema. Compatible con Windows 11 21H2, 22H2, 23H2 y 24H2.</span>
+            </div>
+        </div>
+        <div class="hero-right">
+            <div class="activation-status">
+                <div class="status-icon"><i class="fas fa-circle" id="statusDot" style="color: #f39c12; font-size: 1rem;"></i></div>
+                <div class="status-text inactive" id="statusText">Verificando...</div>
+                <div class="hwid-badge" id="hwidDisplay"><i class="fas fa-microchip"></i> Deteccion en curso...</div>
+            </div>
+            <hr style="border-color: #2d5f7e; margin: 15px 0;">
+            <div style="text-align: left;">
+                <p style="font-size: 0.8rem; color: #7ad0ff;"><i class="fas fa-check-circle"></i> Activacion permanente</p>
+                <p style="font-size: 0.8rem; color: #7ad0ff; margin-top: 8px;"><i class="fas fa-check-circle"></i> Licencia digital vinculada al hardware</p>
+                <p style="font-size: 0.8rem; color: #7ad0ff; margin-top: 8px;"><i class="fas fa-check-circle"></i> Sin software de terceros</p>
+                <p style="font-size: 0.8rem; color: #7ad0ff; margin-top: 8px;"><i class="fas fa-check-circle"></i> Compatible con actualizaciones</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Features Section -->
+    <div class="features-section">
+        <div class="section-title">
+            <i class="fas fa-star"></i> Caracteristicas del activador
+        </div>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fas fa-permanent"></i></div>
+                <h3>Activacion permanente</h3>
+                <p>La activacion HWID es permanente y sobrevive a reinstalaciones del sistema operativo.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fas fa-sync-alt"></i></div>
+                <h3>Actualizaciones garantizadas</h3>
+                <p>Microsoft no bloquea este metodo, por lo que recibira todas las actualizaciones oficiales.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fas fa-shield-virus"></i></div>
+                <h3>100% seguro</h3>
+                <p>No modifica archivos del sistema ni desactiva protecciones de seguridad.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fas fa-microchip"></i></div>
+                <h3>Vinculacion hardware</h3>
+                <p>La licencia se vincula a su placa base y procesador, no necesita recordar claves.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fas fa-globe"></i></div>
+                <h3>Funciona offline</h3>
+                <p>Solo requiere una conexion inicial, luego puede usarse sin internet.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fas fa-clock"></i></div>
+                <h3>Proceso rapido</h3>
+                <p>La activacion completa toma menos de 30 segundos en la mayoria de equipos.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- How it works -->
+    <div class="features-section">
+        <div class="section-title">
+            <i class="fas fa-cogs"></i> Como funciona
+        </div>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fas fa-fingerprint"></i></div>
+                <h3>1. Identificacion hardware</h3>
+                <p>El sistema genera un identificador unico basado en su hardware (placa base, procesador).</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fas fa-cloud-upload-alt"></i></div>
+                <h3>2. Solicitud de licencia</h3>
+                <p>Se envia una solicitud a los servidores de Microsoft para generar una licencia digital.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fas fa-check-double"></i></div>
+                <h3>3. Activacion completada</h3>
+                <p>La licencia queda vinculada permanentemente a su hardware y Windows se activa.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- FAQ Section -->
+    <div class="faq-section">
+        <div class="section-title">
+            <i class="fas fa-question-circle"></i> Preguntas frecuentes
+        </div>
+        <div class="faq-grid">
+            <div class="faq-item">
+                <div class="faq-question">¿Es legal este metodo de activacion?</div>
+                <div class="faq-answer">ElevenToolbox es una herramienta educativa. La activacion HWID replica el proceso oficial de Microsoft. Recomendamos tener una licencia valida de Windows 11.</div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">¿Perdere la activacion al formatear?</div>
+                <div class="faq-answer">No, la licencia queda vinculada a su hardware. Al reinstalar Windows 11, se activara automaticamente al conectarse a internet.</div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">¿Funciona en Windows 10?</div>
+                <div class="faq-answer">ElevenToolbox esta optimizado para Windows 11. Para Windows 10 existen otras herramientas especificas.</div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">¿Necesito conexion a internet?</div>
+                <div class="faq-answer">Si, se requiere conexion a internet durante el proceso de activacion para comunicarse con los servidores de Microsoft.</div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">¿Mi antivirus detectara esto como virus?</div>
+                <div class="faq-answer">Algunos antivirus pueden generar falsos positivos por tratarse de una herramienta que modifica la activacion. ElevenToolbox es completamente seguro.</div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">¿Puedo usarlo en varios equipos?</div>
+                <div class="faq-answer">Cada activacion es unica por hardware. Necesitara ejecutar la herramienta en cada equipo que desee activar.</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- CTA Section -->
+    <div class="cta-section">
+        <h3><i class="fas fa-download"></i> Listo para activar?</h3>
+        <p>Descargue ElevenToolbox y active Windows 11 en menos de un minuto.</p>
+        <button class="btn-primary" id="downloadCtaBtn"><i class="fas fa-download"></i> Descargar ElevenToolbox</button>
+        <p style="margin-top: 20px; font-size: 0.8rem;"><i class="fas fa-shield-alt"></i> Version 1.0 | Gratuito | Sin publicidad | Codigo abierto</p>
+    </div>
+
+    <footer>
+        <div><i class="far fa-copyright"></i> 2026 ElevenToolbox — Herramienta para la comunidad</div>
+        <div>
+            <i class="fab fa-github"></i> GitHub &nbsp;&nbsp;
+            <i class="fab fa-discord"></i> Discord &nbsp;&nbsp;
+            <i class="fas fa-envelope"></i> Soporte
+        </div>
+    </footer>
+</div>
+
+<script>
+    // Simular verificacion de estado de activacion
+    function checkActivationStatus() {
+        const statusDot = document.getElementById('statusDot');
+        const statusText = document.getElementById('statusText');
+        const hwidDisplay = document.getElementById('hwidDisplay');
+        
+        // Simular deteccion de hardware
+        const randomHwid = 'HWID-' + Math.random().toString(36).substring(2, 10).toUpperCase();
+        
+        // Simular estado de activacion (puede ser activado o no)
+        // Para demo, simulamos que esta inactivo
+        const isActivated = false;
+        
+        if (isActivated) {
+            statusDot.style.color = '#2ecc71';
+            statusText.innerHTML = '<i class="fas fa-check-circle"></i> Windows activado';
+            statusText.className = 'status-text active';
+            hwidDisplay.innerHTML = '<i class="fas fa-microchip"></i> ' + randomHwid + ' | Licencia permanente';
+        } else {
+            statusDot.style.color = '#e74c3c';
+            statusText.innerHTML = '<i class="fas fa-times-circle"></i> Windows no activado';
+            statusText.className = 'status-text inactive';
+            hwidDisplay.innerHTML = '<i class="fas fa-microchip"></i> ' + randomHwid + ' | Sin licencia';
+        }
+    }
+    
+    // Simular proceso de activacion
+    function simulateActivation() {
+        const activateBtn = document.getElementById('activateBtn');
+        const originalText = activateBtn.innerHTML;
+        
+        activateBtn.innerHTML = '<i class="fas fa-spinner fa-pulse"></i> Activando...';
+        activateBtn.disabled = true;
+        
+        let progress = 0;
+        const interval = setInterval(() => {
+            progress += 10;
+            if (progress >= 100) {
+                clearInterval(interval);
+                
+                // Cambiar estado a activado
+                const statusDot = document.getElementById('statusDot');
+                const statusText = document.getElementById('statusText');
+                const hwidDisplay = document.getElementById('hwidDisplay');
+                const randomHwid = 'HWID-' + Math.random().toString(36).substring(2, 10).toUpperCase();
+                
+                statusDot.style.color = '#2ecc71';
+                statusText.innerHTML = '<i class="fas fa-check-circle"></i> Windows activado';
+                statusText.className = 'status-text active';
+                hwidDisplay.innerHTML = '<i class="fas fa-microchip"></i> ' + randomHwid + ' | Licencia permanente';
+                
+                activateBtn.innerHTML = '<i class="fas fa-check"></i> Activado correctamente';
+                activateBtn.style.background = 'linear-gradient(95deg, #2ecc71, #27ae60)';
+                
+                setTimeout(() => {
+                    activateBtn.innerHTML = originalText;
+                    activateBtn.style.background = '';
+                    activateBtn.disabled = false;
+                }, 3000);
+                
+                // Mostrar mensaje de exito
+                alert('Windows 11 ha sido activado correctamente.\n\nLa licencia ha sido vinculada a su hardware de forma permanente.');
+            }
+        }, 300);
+    }
+    
+    // Verificar estado al cargar la pagina
+    checkActivationStatus();
+    
+    // Evento del boton de activacion
+    document.getElementById('activateBtn').addEventListener('click', simulateActivation);
+    
+    // Evento del boton de verificar estado
+    document.getElementById('checkStatusBtn').addEventListener('click', () => {
+        checkActivationStatus();
+        alert('Verificacion completada.\n\nEstado de activacion actualizado.');
+    });
+    
+    // Eventos de descarga
+    const downloadBtns = document.querySelectorAll('#downloadBtn, #downloadCtaBtn');
+    downloadBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            alert('Descarga de ElevenToolbox\n\nVersion 1.0 para Windows 11\n\nEl archivo se descargara en breve.');
+        });
+    });
+</script>
+</body>
+</html>
